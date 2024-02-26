@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Jokes</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        #jokeContainer {
+            background-color: #f0f4f8;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #jokeContainer:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #getJokeBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #getJokeBtn:hover {
+            background-color: #45a049;
+        }
+
+        #footer {
+            margin-top: 250px;
+            text-align: center;
+            color: white;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-b from-purple-200 to-purple-500 h-screen flex justify-center items-center">
+    <div class="container mx-auto">
+        <div id="jokeContainer">
+            <h1 class="text-3xl font-semibold mb-4">Random Jokes</h1>
+            <div class="mb-6">
+                <p id="jokeText" class="text-lg mb-4">Click the button below to get a random joke!</p>
+            </div>
+            <button id="getJokeBtn" class="px-6 py-3 rounded hover:bg-green-600">Get Random Joke</button>
+        </div>
+        <div id="footer">
+            <p>Made with ❤️ by Aditya</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const jokeContainer = document.getElementById('jokeContainer');
+            const jokeText = document.getElementById('jokeText');
+            const getJokeBtn = document.getElementById('getJokeBtn');
+
+            getJokeBtn.addEventListener('click', async function () {
+                getJokeBtn.disabled = true;
+                jokeText.textContent = 'Loading joke...';
+
+                try {
+                    const response = await axios.get('https://official-joke-api.appspot.com/random_joke');
+                    const jokeData = response.data;
+
+                    jokeText.textContent = jokeData.setup + ' ' + jokeData.punchline;
+                } catch (error) {
+                    jokeText.textContent = 'Error fetching joke. Please try again later.';
+                }
+
+                getJokeBtn.disabled = false;
+            });
+        });
+    </script>
+</body>
+
+</html>
