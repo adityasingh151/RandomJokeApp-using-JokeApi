@@ -13,7 +13,7 @@ This is a simple web application that fetches random jokes from an external API 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/random-jokes-web-app.git
+   git clone https://github.com/adityasingh151/RandomJokeApp-using-JokeApi.git
 
 2. ```bash
    cd random-jokes-web-app
